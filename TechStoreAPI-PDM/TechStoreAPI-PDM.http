@@ -1,0 +1,6 @@
+@TechStoreAPI_PDM_HostAddress = http://localhost:5146
+
+GET {{TechStoreAPI_PDM_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
