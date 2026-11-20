@@ -16,6 +16,21 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddSwaggerGen();
 
+// Configuración CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("ExpoFrontend", policy =>
+    {
+        policy
+            .WithOrigins(
+                "http://localhost:8081",
+                "http://localhost:19006"
+            )
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+
 var app = builder.Build();
 
 // Configuración de Swagger
@@ -27,7 +42,12 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// Habilitar CORS
+app.UseCors("ExpoFrontend");
+
 app.UseAuthorization();
+
 app.MapControllers();
 
 app.Run();
